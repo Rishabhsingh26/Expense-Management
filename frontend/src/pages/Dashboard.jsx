@@ -13,9 +13,11 @@ function Dashboard() {
 
     const categories = ['Food', 'Travel', 'Bills', 'Shopping', 'Entertainment', 'Health', 'Other'];
 
+    const API_URL = import.meta.env.VITE_API_URL || 'http://localhost:5000';
+
     const fetchExpenses = async () => {
         try {
-            const res = await axios.get('http://localhost:5000/expenses', {
+            const res = await axios.get(`${API_URL}/expenses`, {
                 headers: { Authorization: `Bearer ${token}` }
             });
             setExpenses(res.data);
@@ -31,7 +33,7 @@ function Dashboard() {
     const handleAddExpense = async (e) => {
         e.preventDefault();
         try {
-            await axios.post('http://localhost:5000/expense', 
+            await axios.post(`${API_URL}/expense`, 
                 { title, amount: Number(amount), category },
                 { headers: { Authorization: `Bearer ${token}` } }
             );
