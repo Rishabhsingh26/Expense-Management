@@ -23,17 +23,17 @@ export const AuthProvider = ({ children }) => {
         setLoading(false);
     }, [token]);
 
-    const API_URL = import.meta.env.VITE_API_URL || 'http://localhost:5000';
+    const API = import.meta.env.VITE_API_URL;
 
     const login = async (email, password) => {
-        const res = await axios.post(`${API_URL}/login`, { email, password });
+        const res = await axios.post(`${API}/login`, { email, password });
         localStorage.setItem('token', res.data.token);
         setToken(res.data.token);
         setUser(res.data.user);
     };
 
     const register = async (name, email, password) => {
-        await axios.post(`${API_URL}/register`, { name, email, password });
+        await axios.post(`${API}/register`, { name, email, password });
     };
 
     const logout = () => {
